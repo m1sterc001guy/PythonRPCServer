@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package zwave;
+
+service ZWaveAction {
+  rpc TurnOn(ToggleRequest) returns (ToggleReply) {}
+  rpc TurnOff(ToggleRequest) returns (ToggleReply) {}
+}
+
+message ToggleRequest {}
+
+message ToggleReply {
+  bool success = 1;
+}

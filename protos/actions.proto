@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package action;
+
+service PiAction {
+  rpc IsMonitoringHealthy(MonitoringRequest) returns (MonitoringReply) {}
+}
+
+message MonitoringRequest {}
+
+message MonitoringReply {
+  bool isHealthy = 1;
+}
