@@ -5,7 +5,7 @@ import zwaveactions_pb2_grpc
 
 if __name__ == '__main__':
   print ('Client Starting...')
-  channel = grpc.insecure_channel('localhost:50054')
+  channel = grpc.insecure_channel('192.168.1.73:50054')
   stub = zwaveactions_pb2_grpc.ZWaveActionStub(channel)
   response = stub.TurnOn(zwaveactions_pb2.ToggleRequest())
   print ("Client Received: " + str(response.success))

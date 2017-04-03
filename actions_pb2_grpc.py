@@ -19,11 +19,31 @@ class PiActionStub(object):
         request_serializer=actions__pb2.MonitoringRequest.SerializeToString,
         response_deserializer=actions__pb2.MonitoringReply.FromString,
         )
+    self.TurnOnLight = channel.unary_unary(
+        '/action.PiAction/TurnOnLight',
+        request_serializer=actions__pb2.ToggleLightRequest.SerializeToString,
+        response_deserializer=actions__pb2.ToggleLightReply.FromString,
+        )
+    self.TurnOffLight = channel.unary_unary(
+        '/action.PiAction/TurnOffLight',
+        request_serializer=actions__pb2.ToggleLightRequest.SerializeToString,
+        response_deserializer=actions__pb2.ToggleLightReply.FromString,
+        )
 
 
 class PiActionServicer(object):
 
   def IsMonitoringHealthy(self, request, context):
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def TurnOnLight(self, request, context):
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def TurnOffLight(self, request, context):
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -35,6 +55,16 @@ def add_PiActionServicer_to_server(servicer, server):
           servicer.IsMonitoringHealthy,
           request_deserializer=actions__pb2.MonitoringRequest.FromString,
           response_serializer=actions__pb2.MonitoringReply.SerializeToString,
+      ),
+      'TurnOnLight': grpc.unary_unary_rpc_method_handler(
+          servicer.TurnOnLight,
+          request_deserializer=actions__pb2.ToggleLightRequest.FromString,
+          response_serializer=actions__pb2.ToggleLightReply.SerializeToString,
+      ),
+      'TurnOffLight': grpc.unary_unary_rpc_method_handler(
+          servicer.TurnOffLight,
+          request_deserializer=actions__pb2.ToggleLightRequest.FromString,
+          response_serializer=actions__pb2.ToggleLightReply.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

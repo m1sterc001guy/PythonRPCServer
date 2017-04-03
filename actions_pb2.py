@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='actions.proto',
   package='action',
   syntax='proto3',
-  serialized_pb=_b('\n\ractions.proto\x12\x06\x61\x63tion\"\x13\n\x11MonitoringRequest\"$\n\x0fMonitoringReply\x12\x11\n\tisHealthy\x18\x01 \x01(\x08\x32W\n\x08PiAction\x12K\n\x13IsMonitoringHealthy\x12\x19.action.MonitoringRequest\x1a\x17.action.MonitoringReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\ractions.proto\x12\x06\x61\x63tion\"\x13\n\x11MonitoringRequest\"$\n\x0fMonitoringReply\x12\x11\n\tisHealthy\x18\x01 \x01(\x08\"\x14\n\x12ToggleLightRequest\"#\n\x10ToggleLightReply\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xe6\x01\n\x08PiAction\x12K\n\x13IsMonitoringHealthy\x12\x19.action.MonitoringRequest\x1a\x17.action.MonitoringReply\"\x00\x12\x45\n\x0bTurnOnLight\x12\x1a.action.ToggleLightRequest\x1a\x18.action.ToggleLightReply\"\x00\x12\x46\n\x0cTurnOffLight\x12\x1a.action.ToggleLightRequest\x1a\x18.action.ToggleLightReply\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -80,8 +80,65 @@ _MONITORINGREPLY = _descriptor.Descriptor(
   serialized_end=82,
 )
 
+
+_TOGGLELIGHTREQUEST = _descriptor.Descriptor(
+  name='ToggleLightRequest',
+  full_name='action.ToggleLightRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=84,
+  serialized_end=104,
+)
+
+
+_TOGGLELIGHTREPLY = _descriptor.Descriptor(
+  name='ToggleLightReply',
+  full_name='action.ToggleLightReply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='success', full_name='action.ToggleLightReply.success', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=106,
+  serialized_end=141,
+)
+
 DESCRIPTOR.message_types_by_name['MonitoringRequest'] = _MONITORINGREQUEST
 DESCRIPTOR.message_types_by_name['MonitoringReply'] = _MONITORINGREPLY
+DESCRIPTOR.message_types_by_name['ToggleLightRequest'] = _TOGGLELIGHTREQUEST
+DESCRIPTOR.message_types_by_name['ToggleLightReply'] = _TOGGLELIGHTREPLY
 
 MonitoringRequest = _reflection.GeneratedProtocolMessageType('MonitoringRequest', (_message.Message,), dict(
   DESCRIPTOR = _MONITORINGREQUEST,
@@ -96,6 +153,20 @@ MonitoringReply = _reflection.GeneratedProtocolMessageType('MonitoringReply', (_
   # @@protoc_insertion_point(class_scope:action.MonitoringReply)
   ))
 _sym_db.RegisterMessage(MonitoringReply)
+
+ToggleLightRequest = _reflection.GeneratedProtocolMessageType('ToggleLightRequest', (_message.Message,), dict(
+  DESCRIPTOR = _TOGGLELIGHTREQUEST,
+  __module__ = 'actions_pb2'
+  # @@protoc_insertion_point(class_scope:action.ToggleLightRequest)
+  ))
+_sym_db.RegisterMessage(ToggleLightRequest)
+
+ToggleLightReply = _reflection.GeneratedProtocolMessageType('ToggleLightReply', (_message.Message,), dict(
+  DESCRIPTOR = _TOGGLELIGHTREPLY,
+  __module__ = 'actions_pb2'
+  # @@protoc_insertion_point(class_scope:action.ToggleLightReply)
+  ))
+_sym_db.RegisterMessage(ToggleLightReply)
 
 
 try:
@@ -121,11 +192,31 @@ try:
           request_serializer=MonitoringRequest.SerializeToString,
           response_deserializer=MonitoringReply.FromString,
           )
+      self.TurnOnLight = channel.unary_unary(
+          '/action.PiAction/TurnOnLight',
+          request_serializer=ToggleLightRequest.SerializeToString,
+          response_deserializer=ToggleLightReply.FromString,
+          )
+      self.TurnOffLight = channel.unary_unary(
+          '/action.PiAction/TurnOffLight',
+          request_serializer=ToggleLightRequest.SerializeToString,
+          response_deserializer=ToggleLightReply.FromString,
+          )
 
 
   class PiActionServicer(object):
 
     def IsMonitoringHealthy(self, request, context):
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
+    def TurnOnLight(self, request, context):
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
+    def TurnOffLight(self, request, context):
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
@@ -137,6 +228,16 @@ try:
             servicer.IsMonitoringHealthy,
             request_deserializer=MonitoringRequest.FromString,
             response_serializer=MonitoringReply.SerializeToString,
+        ),
+        'TurnOnLight': grpc.unary_unary_rpc_method_handler(
+            servicer.TurnOnLight,
+            request_deserializer=ToggleLightRequest.FromString,
+            response_serializer=ToggleLightReply.SerializeToString,
+        ),
+        'TurnOffLight': grpc.unary_unary_rpc_method_handler(
+            servicer.TurnOffLight,
+            request_deserializer=ToggleLightRequest.FromString,
+            response_serializer=ToggleLightReply.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -152,6 +253,10 @@ try:
     only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
     def IsMonitoringHealthy(self, request, context):
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def TurnOnLight(self, request, context):
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def TurnOffLight(self, request, context):
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
   class BetaPiActionStub(object):
@@ -163,6 +268,12 @@ try:
     def IsMonitoringHealthy(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       raise NotImplementedError()
     IsMonitoringHealthy.future = None
+    def TurnOnLight(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      raise NotImplementedError()
+    TurnOnLight.future = None
+    def TurnOffLight(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      raise NotImplementedError()
+    TurnOffLight.future = None
 
 
   def beta_create_PiAction_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
@@ -173,12 +284,18 @@ try:
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_deserializers = {
       ('action.PiAction', 'IsMonitoringHealthy'): MonitoringRequest.FromString,
+      ('action.PiAction', 'TurnOffLight'): ToggleLightRequest.FromString,
+      ('action.PiAction', 'TurnOnLight'): ToggleLightRequest.FromString,
     }
     response_serializers = {
       ('action.PiAction', 'IsMonitoringHealthy'): MonitoringReply.SerializeToString,
+      ('action.PiAction', 'TurnOffLight'): ToggleLightReply.SerializeToString,
+      ('action.PiAction', 'TurnOnLight'): ToggleLightReply.SerializeToString,
     }
     method_implementations = {
       ('action.PiAction', 'IsMonitoringHealthy'): face_utilities.unary_unary_inline(servicer.IsMonitoringHealthy),
+      ('action.PiAction', 'TurnOffLight'): face_utilities.unary_unary_inline(servicer.TurnOffLight),
+      ('action.PiAction', 'TurnOnLight'): face_utilities.unary_unary_inline(servicer.TurnOnLight),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
     return beta_implementations.server(method_implementations, options=server_options)
@@ -192,12 +309,18 @@ try:
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_serializers = {
       ('action.PiAction', 'IsMonitoringHealthy'): MonitoringRequest.SerializeToString,
+      ('action.PiAction', 'TurnOffLight'): ToggleLightRequest.SerializeToString,
+      ('action.PiAction', 'TurnOnLight'): ToggleLightRequest.SerializeToString,
     }
     response_deserializers = {
       ('action.PiAction', 'IsMonitoringHealthy'): MonitoringReply.FromString,
+      ('action.PiAction', 'TurnOffLight'): ToggleLightReply.FromString,
+      ('action.PiAction', 'TurnOnLight'): ToggleLightReply.FromString,
     }
     cardinalities = {
       'IsMonitoringHealthy': cardinality.Cardinality.UNARY_UNARY,
+      'TurnOffLight': cardinality.Cardinality.UNARY_UNARY,
+      'TurnOnLight': cardinality.Cardinality.UNARY_UNARY,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
     return beta_implementations.dynamic_stub(channel, 'action.PiAction', cardinalities, options=stub_options)
