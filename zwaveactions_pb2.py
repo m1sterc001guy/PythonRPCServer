@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='zwaveactions.proto',
   package='zwave',
   syntax='proto3',
-  serialized_pb=_b('\n\x12zwaveactions.proto\x12\x05zwave\"\x0f\n\rToggleRequest\"\x1e\n\x0bToggleReply\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32z\n\x0bZWaveAction\x12\x34\n\x06TurnOn\x12\x14.zwave.ToggleRequest\x1a\x12.zwave.ToggleReply\"\x00\x12\x35\n\x07TurnOff\x12\x14.zwave.ToggleRequest\x1a\x12.zwave.ToggleReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x12zwaveactions.proto\x12\x05zwave\"\x0f\n\rToggleRequest\"\x1e\n\x0bToggleReply\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x14\n\x12LightStatusRequest\" \n\x10LightStatusReply\x12\x0c\n\x04isOn\x18\x01 \x01(\x08\x32\x90\x01\n\x0bZWaveAction\x12\x39\n\x0bToggleLight\x12\x14.zwave.ToggleRequest\x1a\x12.zwave.ToggleReply\"\x00\x12\x46\n\x0eGetLightStatus\x12\x19.zwave.LightStatusRequest\x1a\x17.zwave.LightStatusReply\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -80,8 +80,65 @@ _TOGGLEREPLY = _descriptor.Descriptor(
   serialized_end=76,
 )
 
+
+_LIGHTSTATUSREQUEST = _descriptor.Descriptor(
+  name='LightStatusRequest',
+  full_name='zwave.LightStatusRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=78,
+  serialized_end=98,
+)
+
+
+_LIGHTSTATUSREPLY = _descriptor.Descriptor(
+  name='LightStatusReply',
+  full_name='zwave.LightStatusReply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='isOn', full_name='zwave.LightStatusReply.isOn', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=100,
+  serialized_end=132,
+)
+
 DESCRIPTOR.message_types_by_name['ToggleRequest'] = _TOGGLEREQUEST
 DESCRIPTOR.message_types_by_name['ToggleReply'] = _TOGGLEREPLY
+DESCRIPTOR.message_types_by_name['LightStatusRequest'] = _LIGHTSTATUSREQUEST
+DESCRIPTOR.message_types_by_name['LightStatusReply'] = _LIGHTSTATUSREPLY
 
 ToggleRequest = _reflection.GeneratedProtocolMessageType('ToggleRequest', (_message.Message,), dict(
   DESCRIPTOR = _TOGGLEREQUEST,
@@ -96,6 +153,20 @@ ToggleReply = _reflection.GeneratedProtocolMessageType('ToggleReply', (_message.
   # @@protoc_insertion_point(class_scope:zwave.ToggleReply)
   ))
 _sym_db.RegisterMessage(ToggleReply)
+
+LightStatusRequest = _reflection.GeneratedProtocolMessageType('LightStatusRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LIGHTSTATUSREQUEST,
+  __module__ = 'zwaveactions_pb2'
+  # @@protoc_insertion_point(class_scope:zwave.LightStatusRequest)
+  ))
+_sym_db.RegisterMessage(LightStatusRequest)
+
+LightStatusReply = _reflection.GeneratedProtocolMessageType('LightStatusReply', (_message.Message,), dict(
+  DESCRIPTOR = _LIGHTSTATUSREPLY,
+  __module__ = 'zwaveactions_pb2'
+  # @@protoc_insertion_point(class_scope:zwave.LightStatusReply)
+  ))
+_sym_db.RegisterMessage(LightStatusReply)
 
 
 try:
@@ -116,26 +187,26 @@ try:
       Args:
         channel: A grpc.Channel.
       """
-      self.TurnOn = channel.unary_unary(
-          '/zwave.ZWaveAction/TurnOn',
+      self.ToggleLight = channel.unary_unary(
+          '/zwave.ZWaveAction/ToggleLight',
           request_serializer=ToggleRequest.SerializeToString,
           response_deserializer=ToggleReply.FromString,
           )
-      self.TurnOff = channel.unary_unary(
-          '/zwave.ZWaveAction/TurnOff',
-          request_serializer=ToggleRequest.SerializeToString,
-          response_deserializer=ToggleReply.FromString,
+      self.GetLightStatus = channel.unary_unary(
+          '/zwave.ZWaveAction/GetLightStatus',
+          request_serializer=LightStatusRequest.SerializeToString,
+          response_deserializer=LightStatusReply.FromString,
           )
 
 
   class ZWaveActionServicer(object):
 
-    def TurnOn(self, request, context):
+    def ToggleLight(self, request, context):
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
-    def TurnOff(self, request, context):
+    def GetLightStatus(self, request, context):
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
@@ -143,15 +214,15 @@ try:
 
   def add_ZWaveActionServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'TurnOn': grpc.unary_unary_rpc_method_handler(
-            servicer.TurnOn,
+        'ToggleLight': grpc.unary_unary_rpc_method_handler(
+            servicer.ToggleLight,
             request_deserializer=ToggleRequest.FromString,
             response_serializer=ToggleReply.SerializeToString,
         ),
-        'TurnOff': grpc.unary_unary_rpc_method_handler(
-            servicer.TurnOff,
-            request_deserializer=ToggleRequest.FromString,
-            response_serializer=ToggleReply.SerializeToString,
+        'GetLightStatus': grpc.unary_unary_rpc_method_handler(
+            servicer.GetLightStatus,
+            request_deserializer=LightStatusRequest.FromString,
+            response_serializer=LightStatusReply.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -165,9 +236,9 @@ try:
     It is recommended to use the GA API (classes and functions in this
     file not marked beta) for all further purposes. This class was generated
     only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    def TurnOn(self, request, context):
+    def ToggleLight(self, request, context):
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def TurnOff(self, request, context):
+    def GetLightStatus(self, request, context):
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
@@ -177,12 +248,12 @@ try:
     It is recommended to use the GA API (classes and functions in this
     file not marked beta) for all further purposes. This class was generated
     only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    def TurnOn(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+    def ToggleLight(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       raise NotImplementedError()
-    TurnOn.future = None
-    def TurnOff(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+    ToggleLight.future = None
+    def GetLightStatus(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       raise NotImplementedError()
-    TurnOff.future = None
+    GetLightStatus.future = None
 
 
   def beta_create_ZWaveAction_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
@@ -192,16 +263,16 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_deserializers = {
-      ('zwave.ZWaveAction', 'TurnOff'): ToggleRequest.FromString,
-      ('zwave.ZWaveAction', 'TurnOn'): ToggleRequest.FromString,
+      ('zwave.ZWaveAction', 'GetLightStatus'): LightStatusRequest.FromString,
+      ('zwave.ZWaveAction', 'ToggleLight'): ToggleRequest.FromString,
     }
     response_serializers = {
-      ('zwave.ZWaveAction', 'TurnOff'): ToggleReply.SerializeToString,
-      ('zwave.ZWaveAction', 'TurnOn'): ToggleReply.SerializeToString,
+      ('zwave.ZWaveAction', 'GetLightStatus'): LightStatusReply.SerializeToString,
+      ('zwave.ZWaveAction', 'ToggleLight'): ToggleReply.SerializeToString,
     }
     method_implementations = {
-      ('zwave.ZWaveAction', 'TurnOff'): face_utilities.unary_unary_inline(servicer.TurnOff),
-      ('zwave.ZWaveAction', 'TurnOn'): face_utilities.unary_unary_inline(servicer.TurnOn),
+      ('zwave.ZWaveAction', 'GetLightStatus'): face_utilities.unary_unary_inline(servicer.GetLightStatus),
+      ('zwave.ZWaveAction', 'ToggleLight'): face_utilities.unary_unary_inline(servicer.ToggleLight),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
     return beta_implementations.server(method_implementations, options=server_options)
@@ -214,16 +285,16 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_serializers = {
-      ('zwave.ZWaveAction', 'TurnOff'): ToggleRequest.SerializeToString,
-      ('zwave.ZWaveAction', 'TurnOn'): ToggleRequest.SerializeToString,
+      ('zwave.ZWaveAction', 'GetLightStatus'): LightStatusRequest.SerializeToString,
+      ('zwave.ZWaveAction', 'ToggleLight'): ToggleRequest.SerializeToString,
     }
     response_deserializers = {
-      ('zwave.ZWaveAction', 'TurnOff'): ToggleReply.FromString,
-      ('zwave.ZWaveAction', 'TurnOn'): ToggleReply.FromString,
+      ('zwave.ZWaveAction', 'GetLightStatus'): LightStatusReply.FromString,
+      ('zwave.ZWaveAction', 'ToggleLight'): ToggleReply.FromString,
     }
     cardinalities = {
-      'TurnOff': cardinality.Cardinality.UNARY_UNARY,
-      'TurnOn': cardinality.Cardinality.UNARY_UNARY,
+      'GetLightStatus': cardinality.Cardinality.UNARY_UNARY,
+      'ToggleLight': cardinality.Cardinality.UNARY_UNARY,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
     return beta_implementations.dynamic_stub(channel, 'zwave.ZWaveAction', cardinalities, options=stub_options)

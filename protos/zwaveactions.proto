@@ -3,12 +3,18 @@ syntax = "proto3";
 package zwave;
 
 service ZWaveAction {
-  rpc TurnOn(ToggleRequest) returns (ToggleReply) {}
-  rpc TurnOff(ToggleRequest) returns (ToggleReply) {}
+  rpc ToggleLight(ToggleRequest) returns (ToggleReply) {}
+  rpc GetLightStatus(LightStatusRequest) returns (LightStatusReply) {}
 }
 
 message ToggleRequest {}
 
 message ToggleReply {
   bool success = 1;
+}
+
+message LightStatusRequest {}
+
+message LightStatusReply {
+  bool isOn = 1;
 }
