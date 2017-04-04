@@ -10,7 +10,7 @@ service ZWaveAction {
 message ToggleRequest {}
 
 message ToggleReply {
-  bool success = 1;
+  bool isOn = 1;
 }
 
 message LightStatusRequest {}

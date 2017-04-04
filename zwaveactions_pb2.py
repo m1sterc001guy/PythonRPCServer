@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='zwaveactions.proto',
   package='zwave',
   syntax='proto3',
-  serialized_pb=_b('\n\x12zwaveactions.proto\x12\x05zwave\"\x0f\n\rToggleRequest\"\x1e\n\x0bToggleReply\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x14\n\x12LightStatusRequest\" \n\x10LightStatusReply\x12\x0c\n\x04isOn\x18\x01 \x01(\x08\x32\x90\x01\n\x0bZWaveAction\x12\x39\n\x0bToggleLight\x12\x14.zwave.ToggleRequest\x1a\x12.zwave.ToggleReply\"\x00\x12\x46\n\x0eGetLightStatus\x12\x19.zwave.LightStatusRequest\x1a\x17.zwave.LightStatusReply\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x12zwaveactions.proto\x12\x05zwave\"\x0f\n\rToggleRequest\"\x1b\n\x0bToggleReply\x12\x0c\n\x04isOn\x18\x01 \x01(\x08\"\x14\n\x12LightStatusRequest\" \n\x10LightStatusReply\x12\x0c\n\x04isOn\x18\x01 \x01(\x08\x32\x90\x01\n\x0bZWaveAction\x12\x39\n\x0bToggleLight\x12\x14.zwave.ToggleRequest\x1a\x12.zwave.ToggleReply\"\x00\x12\x46\n\x0eGetLightStatus\x12\x19.zwave.LightStatusRequest\x1a\x17.zwave.LightStatusReply\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -58,7 +58,7 @@ _TOGGLEREPLY = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='success', full_name='zwave.ToggleReply.success', index=0,
+      name='isOn', full_name='zwave.ToggleReply.isOn', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -77,7 +77,7 @@ _TOGGLEREPLY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=46,
-  serialized_end=76,
+  serialized_end=73,
 )
 
 
@@ -100,8 +100,8 @@ _LIGHTSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=78,
-  serialized_end=98,
+  serialized_start=75,
+  serialized_end=95,
 )
 
 
@@ -131,8 +131,8 @@ _LIGHTSTATUSREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=100,
-  serialized_end=132,
+  serialized_start=97,
+  serialized_end=129,
 )
 
 DESCRIPTOR.message_types_by_name['ToggleRequest'] = _TOGGLEREQUEST
